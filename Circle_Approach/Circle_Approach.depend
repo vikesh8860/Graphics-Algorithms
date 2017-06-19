@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1477248370 source:c:\users\vikesh pc\documents\circle_approach\main.cpp
+	<iostream>
+	<graphics.h>
+	<bits/stdc++.h>
+
+1477251949 source:c:\users\vikesh pc\documents\graphics _lab file\concrete_done\circle_approach\main.cpp
+	<iostream>
+	<graphics.h>
+	<bits/stdc++.h>
+

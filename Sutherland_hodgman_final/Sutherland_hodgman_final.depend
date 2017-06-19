@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1477331362 source:c:\users\vikesh pc\documents\graphics _lab file\sutherland_hodgman_final\main.cpp
+	<iostream>
+	<graphics.h>
+	<bits/stdc++.h>
+

@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1477387362 source:c:\users\vikesh pc\documents\graphics _lab file\3-d transformation\main.cpp
+	<iostream>
+	<graphics.h>
+	<bits/stdc++.h>
+

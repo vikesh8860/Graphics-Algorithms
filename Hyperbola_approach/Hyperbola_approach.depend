@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1477292018 source:c:\users\vikesh pc\documents\graphics _lab file\hyperbola_approach\main.cpp
+	<iostream>
+	<graphics.h>
+	<bits/stdc++.h>
+

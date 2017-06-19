@@ -1,0 +1,127 @@
+#include <bits/stdc++.h>
+#include <graphics.h>
+#define M_PI 3.14159
+using namespace std;
+struct point
+{
+    float x,y,z;
+};
+point p[10];
+point translation(point p,int dx,int dy,int dz)
+{
+    float a[4][1]= {p.x,p.y,p.z,1},tran[4][4]= {{1,0,0,dx},{0,1,0,dy},{0,0,1,dz},{0,0,0,1}},result[4][1]= {0,0,0,0};
+    int i,j,k;
+    for(i=0; i<4; i++)
+    {
+        for(j=0; j<1; j++)
+        {
+            for(k=0; k<4; k++)
+                result[i][j]+=tran[i][k]*a[k][j];
+        }
+    }
+    p.x=result[0][0];
+    p.y=result[1][0];
+    p.z=result[2][0];
+    return p;
+}
+point rotation(point p,float angle,int about)
+{
+    angle*=M_PI/180;
+    float a[4][1]= {p.x,p.y,p.z,1},result[4][1]= {0,0,0,0};
+    float rot_z[4][4]= {{cos(angle),-sin(angle),0,0},{sin(angle),cos(angle),0,0},{0,0,1,0},{0,0,0,1}};
+    float rot_x[4][4]= {{1,0,0,0},{0,cos(angle),-sin(angle),0},{0,sin(angle),cos(angle),0},{0,0,0,1}};
+    float rot_y[4][4]= {{cos(angle),0,sin(angle),0},{0,1,0,0},{-sin(angle),0,cos(angle),0},{0,0,0,1}};
+    int i,j,k;
+    for(i=0; i<4; i++)
+    {
+        for(j=0; j<1; j++)
+        {
+            for(k=0; k<4; k++)
+                if(about==1)
+                    result[i][j]+=rot_x[i][k]*a[k][j];
+                else if(about==2)
+                    result[i][j]+=rot_y[i][k]*a[k][j];
+                else
+                    result[i][j]+=rot_z[i][k]*a[k][j];
+        }
+    }
+    p.x=result[0][0];
+    p.y=result[1][0];
+    p.z=result[2][0];
+    return p;
+}
+void draw_cube_front()
+{
+    //draw the front view of the cube
+    line(120+p[0].x,200-p[0].y,120+p[1].x,200-p[1].y);
+    line(120+p[1].x,200-p[1].y,120+p[2].x,200-p[2].y);
+    line(120+p[2].x,200-p[2].y,120+p[3].x,200-p[3].y);
+    line(120+p[3].x,200-p[3].y,120+p[0].x,200-p[0].y);
+    line(120+p[4].x,200-p[4].y,120+p[5].x,200-p[5].y);
+    line(120+p[5].x,200-p[5].y,120+p[6].x,200-p[6].y);
+    line(120+p[6].x,200-p[6].y,120+p[7].x,200-p[7].y);
+    line(120+p[7].x,200-p[7].y,120+p[4].x,200-p[4].y);
+    line(120+p[0].x,200-p[0].y,120+p[4].x,200-p[4].y);
+    line(120+p[1].x,200-p[1].y,120+p[5].x,200-p[5].y);
+    line(120+p[2].x,200-p[2].y,120+p[6].x,200-p[6].y);
+    line(120+p[3].x,200-p[3].y,120+p[7].x,200-p[7].y);
+    outtextxy(120,300,"Front view");
+
+}
+int main()
+{
+    int i=0;
+    p[0].x=0;p[0].y=0;
+    p[0].z=0;p[1].x=80;
+    p[1].y=0;p[1].z=0;
+    p[2].x=80;p[2].y=0;
+    p[2].z=80;p[3].x=0;
+    p[3].y=0;p[3].z=80;
+    p[4].x=0;
+    p[4].y=80;
+    p[4].z=0;
+    p[5].x=80;
+    p[5].y=80;
+    p[5].z=0;
+    p[6].x=80;
+    p[6].y=80;
+    p[6].z=80;
+    p[7].x=0;
+    p[7].y=80;
+    p[7].z=80;
+    initwindow(700,500);
+    draw_cube_front();
+    for(i=0; i<8; i++)
+    {
+        p[i]=rotation(p[i],-45.0,1);
+    }
+    for(i=0; i<8; i++)
+    {
+        p[i]=rotation(p[i],-37.5,2);
+    }
+    cleardevice();
+    getch();
+    int j=0;
+    while(j++<10)
+    {
+        draw_cube_front();
+        for(i=0; i<8; i++)
+        {
+            p[i]=rotation(p[i],-45.0,3);
+        }
+        for(i=0; i<8; i++)
+        {
+            p[i]=rotation(p[i],-45.0,1);
+        }
+        for(i=0; i<8; i++)
+        {
+            p[i]=rotation(p[i],-37.5,2);
+        }
+        getch();
+        cleardevice();
+    }
+
+    getch();
+    closegraph();
+    return 0;
+}

@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1477344923 source:c:\users\vikesh pc\documents\graphics _lab file\hermit_curve\main.cpp
+	<stdio.h>
+	<conio.h>
+	<graphics.h>
+	<math.h>
+

@@ -1,0 +1,203 @@
+#include <iostream>
+#include <graphics.h>
+#define LEFT 1
+#define RIGHT 4
+#define TOP 8
+#define BOTTOM 2
+typedef struct point point;
+using namespace std;
+struct point
+{
+    double x,y;
+};
+void dda_line(double x1,double y1,double x2,double y2);
+int getcode(point p,point wmin,point wmax)
+{
+    int code=0;
+    if(p.x<wmin.x) code=code|LEFT;
+    if(p.x>wmax.x) code=code|RIGHT;
+    if(p.y<wmin.y) code=code|TOP;
+    if(p.y<wmax.y) code=code|BOTTOM;
+    return code;
+}
+int isin(point p,point wmin,point wmax)
+{
+    if(getcode(p,wmin,wmax)==0)
+        return 1;
+    else
+        return 0;
+}
+point mid(point p1,point p2)
+{
+    point m;
+    m.x=(p1.x+p2.x)/2;
+    m.y=(p1.y+p2.y)/2;
+    return m;
+}
+double dist(point t1,point t2)
+{
+    double dsx=t1.x-t2.x,dsy=t1.y-t2.y,ds;
+    ds=dsx>dsy?dsx:dsy;
+    return ds;
+}
+void midpt(point wmin,point wmax,point p1,point p2)
+{
+    point t;
+    if(p1.x>p2.x)
+     {
+         t=p1; p1=p2;p2=t;
+     }
+    int code1=getcode(p1,wmin,wmax);
+    int code2=getcode(p2,wmin,wmax);
+    if((code1&code2)!=0) return ;
+    else if(code1==0&&code2==0) dda_line(p1.x,p1.y,p2.x,p2.y);
+    else
+    {
+        t=mid(p1,p2);
+        if((dist(t,p1)>=1)||(dist(t,p2)>=1))
+        {
+            int codem=getcode(t,wmin,wmax);
+            if(isin(t,wmin,wmax))
+            {
+                if(isin(p1,wmin,wmax))
+                {
+                    dda_line(p1.x,p1.y,t.x,t.y);
+                    p1=t;
+                    midpt(wmin,wmax,p1,p2);
+                }
+                else if(isin(p2,wmin,wmax))
+                {
+                    dda_line(p2.x,p2.y,t.x,t.y);
+                    p2=t;
+                    midpt(wmin,wmax,p1,p2);
+                }
+                else
+                {
+                    midpt(wmin,wmax,p1,t);
+                    midpt(wmin,wmax,t,p2);
+                }
+            }
+            else
+            {
+                if((code1&codem)!=0)  p1=t;
+                else if((code2&codem)!=0) p2=t;
+                midpt(wmin,wmax,p1,p2);
+            }
+        }
+    }
+}
+int main()
+{
+    int gm=DETECT,gd;
+    point wmin,wmax,p1,p2;
+    initgraph(&gm,&gd,"C:\\TC\\BGI");
+    wmin.x=100;wmin.y=100;wmax.x=300;wmax.y=200;
+    dda_line(wmin.x,wmin.y,wmax.x,wmin.y);
+    dda_line(wmin.x,wmin.y,wmin.x,wmax.y);
+    dda_line(wmax.x,wmin.y,wmax.x,wmax.y);
+    dda_line(wmin.x,wmax.y,wmax.x,wmax.y);
+    p1.x=75;p1.y=150;p2.x=200;p2.y=70;
+    dda_line(p1.x,p1.y,p2.x,p2.y);
+
+    getch();
+    cleardevice();
+    midpt(wmin,wmax,p1,p2);
+//    dda_line(wmin.x,wmin.y,wmax.x,wmin.y);
+//    dda_line(wmin.x,wmin.y,wmin.x,wmax.y);
+//    dda_line(wmax.x,wmin.y,wmax.x,wmax.y);
+//    dda_line(wmin.x,wmax.y,wmax.x,wmax.y);
+    getch();
+    closegraph();
+    return 0;
+}
+void dda_line(double x1,double y1,double x2,double y2)
+{
+
+    double dy=y2-y1,dx=x2-x1;
+    double m=dy/dx;
+    if(x1<=x2&&y1<=y2)    // 4th quad
+    {
+        if(abs(dy)<abs(dx))
+        {
+            while(x1<=x2)
+            {
+                putpixel(x1,y1,WHITE);
+                y1+=m;
+                x1++;
+            }
+        }
+        else
+        {
+            while(y1<=y2)
+            {
+                putpixel(x1,y1,WHITE);
+                x1+=1/m;
+                y1++;
+            }
+        }
+
+    }
+    else if(x1<=x2&&y1>=y2)
+    {
+        if(abs(dy)<abs(dx))
+        {
+            while(x1<=x2)
+            {
+                putpixel(x1,y1,WHITE);
+                y1+=m;
+                x1++;
+            }
+        }
+        else
+        {
+            while(y1>=y2)
+            {
+                putpixel(x1,y1,WHITE);
+                x1-=1/m;
+                y1--;
+            }
+        }
+    }
+    else if(x1>=x2&&y1<=y2)
+    {
+        if(abs(dy)<abs(dx))
+        {
+            while(x1>=x2)
+            {
+                putpixel(x1,y1,WHITE);
+                y1-=m;
+                x1--;
+            }
+        }
+        else
+        {
+            while(y1<=y2)
+            {
+                putpixel(x1,y1,WHITE);
+                x1+=1/m;
+                y1++;
+            }
+        }
+    }
+    else
+    {
+        if(abs(dy)<abs(dx))
+        {
+            while(x1>=x2)
+            {
+                putpixel(x1,y1,WHITE);
+                y1-=m;
+                x1--;
+            }
+        }
+        else
+        {
+            while(y1>=y2)
+            {
+                putpixel(x1,y1,WHITE);
+                x1-=1/m;
+                y1--;
+            }
+        }
+    }
+}

@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1476775385 source:c:\users\vikesh pc\documents\graphics _lab file\cube_rotation\main.cpp
+	<iostream>
+	<graphics.h>
+	<bits/stdc++.h>
+	<cmath>
+	<math.h>
+
+1476775385 source:c:\users\vikesh pc\documents\graphics _lab file\concrete_done\cube_rotation_try(not)\main.cpp
+	<iostream>
+	<graphics.h>
+	<bits/stdc++.h>
+	<cmath>
+	<math.h>
+

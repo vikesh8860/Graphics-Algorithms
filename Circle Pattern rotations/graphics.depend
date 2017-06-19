@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1471260752 source:c:\users\vikesh pc\documents\graphics\main.cpp
+	<iostream>
+	<graphics.h>
+	<math.h>
+	"circle.h"
+
+1471335995 c:\users\vikesh pc\documents\graphics\circle.h
+

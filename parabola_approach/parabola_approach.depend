@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1477347958 source:c:\users\vikesh pc\documents\graphics _lab file\parabola_approach\main.cpp
+	<iostream>
+	<math.h>
+	<graphics.h>
+

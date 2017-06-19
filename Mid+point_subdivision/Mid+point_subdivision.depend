@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1477317983 source:c:\users\vikesh pc\documents\graphics _lab file\mid+point_subdivision\main.cpp
+	<iostream>
+	<graphics.h>
+	<conio.h>
+

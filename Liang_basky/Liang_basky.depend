@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1477318418 source:c:\users\vikesh pc\documents\graphics _lab file\liang_basky\main.cpp
+	<iostream>
+	<graphics.h>
+	<conio.h>
+	<vector>
+
